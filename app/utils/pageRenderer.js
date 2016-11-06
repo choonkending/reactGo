@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { RouterContext } from 'react-router';
 import { trackingID } from 'config/app';
-import Helmet from 'react-helmet';
+import markup from 'index.html';
 
 const createTrackingScript = trackingID =>
 `<script>
@@ -23,26 +23,15 @@ const createApp = (store, props) => renderToString(
   </Provider>
 );
 
-const buildPage = (header, componentHTML, initialState, analtyicsScript) =>
-`<!doctype html>
-<html ${header.htmlAttributes.toString()}>
-<head>
-${header.title.toString()}
-${header.meta.toString()}
-${header.link.toString()}
-</head>
-<body>
-<div id="app">${componentHTML}</div>
-<script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
-${analtyicsScript}
-<script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
-</body>
-</html>`;
+const buildPage = (componentHTML, initialState, analtyicsScript) => {
+  return markup
+    .replace('!!COMPONENT_HTML!!', componentHTML)
+    .replace('!!INITIAL_STATE!!', JSON.stringify(initialState));
+};
 
 export default (store, props) => {
   const initialState = store.getState();
   const componentHTML = createApp(store, props);
-  const header = Helmet.rewind();
-  return buildPage(header, componentHTML, initialState, analtyicsScript);
+  return buildPage(componentHTML, initialState, analtyicsScript);
 };
 
