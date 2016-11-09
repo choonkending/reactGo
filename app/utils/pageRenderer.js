@@ -5,6 +5,11 @@ import { RouterContext } from 'react-router';
 import { trackingID } from 'config/app';
 import markup from 'index.html';
 
+
+/*
+ * Consider async script loading if you support IE9+
+ * https://developers.google.com/analytics/devguides/collection/analyticsjs/
+ */
 const createTrackingScript = trackingID =>
 `<script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -23,8 +28,21 @@ const createApp = (store, props) => renderToString(
   </Provider>
 );
 
+const createStyles = () => {
+  return __DEVSERVER__ ? '' : '<link rel="stylesheet" href="/assets/styles/main.css" />';
+};
+
+const createScripts = () => {
+  return `
+    ${analtyicsScript}
+    <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
+  `;
+};
+
 const buildPage = (componentHTML, initialState, analtyicsScript) => {
   return markup
+    .replace('!!STYLE_ASSETS!!', createStyles())
+    .replace('!!SCRIPT_ASSETS!!', createScripts())
     .replace('!!COMPONENT_HTML!!', componentHTML)
     .replace('!!INITIAL_STATE!!', JSON.stringify(initialState));
 };
