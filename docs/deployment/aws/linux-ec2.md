@@ -1,25 +1,31 @@
-## Deploying To AWS
+# Deploy to AWS EC2 with Linux AMI
 
-Amazon AWS allows you access to a free tier of service for a year, so it is a great option if you are looking for a place to host your project and want to grow your Ops skills along with your dev skills.
+Interested in learning how to deploy our app to AWS EC2 with Linux AMI? Read on! Beware though, there's going to be a whole lot of :information_source: bits throughout - I wrote this doc not knowing anything about AWS. 
 
-#### Sign Up
+**:information_source: AMI**
 
-The first thing you will need to do is sign up for an [account](https://aws.amazon.com/free/) - 🔒 remember to set up [multi factor authentication](https://aws.amazon.com/iam/details/mfa/) for increased security in your AWS environments! 
+An Amazon Machine Image (AMI) provides the information required to launch an instance, which is a virtual server in the cloud. You specify an AMI when you launch an instance, and you can launch as many instances from the AMI as you need.
 
-Amazon has a lot of options, but we will be focused on the simpler way for deploying - using EC2 - so navigate to the EC2 dashboard!
+The Amazon Linux AMI is a supported and maintained Linux image provided by AWS for use on AWS EC2. It is designed to provide a stable, secure, and high performance execution environment running on Amazon EC2. We decided to try the Amazon Linux AMI because it:
+- supports the latest EC2 type features
+- includes packages that easily integrate with AWS
+- provides security and maintainance updates by AWS
 
-**:information_source: What is EC2 ?**
+**:information_source: EC2**
 
 Amazon Elastic Compute Cloud (EC2) is a web service which provides resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. EC2 instances are located within a Virtual Private Cloud (VPC) that is a logically isolated network you control. Amazon VPC provides you with a number of network security tools you can use to control who can access your instances.
 
-#### Create an IAM User
+# Instructions
+
+## Sign Up
+
+The first thing you will need to do is sign up for an [account](https://aws.amazon.com/free/) - 🔒 remember to set up [multi factor authentication](https://aws.amazon.com/iam/details/mfa/) for increased security in your AWS environments! 
+
+## Create an IAM User
 
 :information_source: IAM - Identity and Access Management
 
-🔒
-Lock away your AWS account (root) access keys because they provide **_unrestricted_** access to your AWS resources. Create the IAM user with administrative permissions instead! All future interactions should be through the AWS account's users and their own keys instead of the root user
-
-Do the following:
+🔒 Lock away your AWS account (root) access keys because they provide **_unrestricted_** access to your AWS resources. Create the IAM user with administrative permissions instead! All future interactions should be through the AWS account's users and their own keys instead of the root user.
 
 1. Create an IAM user
   - Select **AWS Management Console access - with a password**
@@ -30,11 +36,9 @@ Do the following:
 
 Read more about IAM best practices [here](http://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html).
 
-#### Create a Key Pair
+## Create a Key Pair
 
 A Linux instance - incidentally the instance we will be launching in EC2 - on AWS has no password. We will need to create a key pair in order to log in to our instance securely!
-
-Do the following:
 
 1. Sign in to AWS with the created IAM user's link
 2. Go to the Amazon EC2 Console
@@ -47,13 +51,11 @@ Do the following:
 chmod 400 your_file.pem
 ```
 
-#### Create a VPC
+## Create a VPC
 
 :information_source: A _virtual private cloud_ (VPC) is a virtual network dedicated to your AWS account. It is logically isolated from other virtual networks in the AWS cloud. You can launch AWS resources (e.g. EC2 instances) into your VPC and configure your VPC by selecting it's IP address range, create subnets, configure route tables, network gateways and security settings.
 
 :warning: If you already have a default VPC, you can skip to the next section. 
-
-Do the following:
 
 1. Go to VPC in your dashboard
 2. Select a region - remember to select the same region in which you created your Key Pair
@@ -65,13 +67,11 @@ Do the following:
 
 :information_source: A _subnet_ is a range of IP addresses in your VPC. Use a **public subnet** for resources that must be connected to the internet, and a **private subnet** for resources that won't be connected to the internet. 
 
-#### Create a Security Group
+## Create a Security Group
 
 :information_source: A _security group_ acts as a firewall for associated instances, controlling inbound and outbound traffic at an instance level.
 
 Before you initialize a new instance you will need to set up a security group. This security group will just open the ports you need for development. Once you go to production you should SERIOUSLY consider a more locked down security group.
-
-Do the following:
 
 1. Go to the Amazon EC2 Console
 2. Select a region - remember to select the same region in which you created your Key Pair
@@ -168,4 +168,4 @@ A more production ready solution would be to use [NginX](https://www.nginx.com/r
 2. [IAM Best Practices](http://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
 3. [What is Amazon VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html)
 4. [Getting Started with Amazon EC2 Linux Instances](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
-
+5. [Amazon Machine Images](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)
