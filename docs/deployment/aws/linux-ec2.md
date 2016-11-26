@@ -98,14 +98,14 @@ Custom TCP Rule   TCP           27017    0.0.0.0/0
 
 To specify an individual IP address in CIDR notation, add the routing suffix /32 to your IP address. You can check your public IP address in [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/).
 
-#### Create an EC2 instance
+## Create an EC2 instance
 
 Now it is time to create an instance. Make sure you are in the correct region - the drop down is at the top-corner of the navigation bar! This should be the region that is closet to your geographic location.
 
 You ready?
 
 1. Select **Launch Instance**
-2. Pick **Ubuntu Server 16.04 LTS** (it is free tier eligible)
+2. Pick **Amazon Linux AMI** (it is free tier eligible)
 3. Follow through the steps, but the defaults should all suffice. 
 4. Tag your project with a name and then apply the security group you created earlier, review and launch.
 
