@@ -127,13 +127,17 @@ Now that we have an Elastic IP, let's associate it with a running instance:
 
 :books: If you have a registered domain name (e.g. example.com) and wish to route your traffic to your EC2 instance, read more [here](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-ec2-instance.html).
 
-#### CONNECTING
+:boom: We're now ready to connect peeps!
 
-There are explicit instruction if you click the connect button on the instances page of the EC2 dashboard. But in your terminal you will need to type something that looks like this.
+## Connect to your EC2 Instance
 
-`ssh -i "node.pem" ubuntu@ec2-##-#-###-###.compute-1.amazonaws.com`
+There are clear instructions if you click the **Connect** button on the **Instances** page of your EC2 dashboard. But if you've been keeping up so far, you will just need to run the following in your terminal
 
-Now that you are connected you are on the server. And the server is clean so we need to install some things.
+```bash
+ssh -i "your_file.pem" ec2-user@ec2-##-##-##-##.region.amazonaws.com
+```
+
+Voila! You are connected! 
 
 #### INSTALLING SOFTWARE
 
