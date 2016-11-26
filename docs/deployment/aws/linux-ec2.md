@@ -111,13 +111,21 @@ You ready?
 
 The last step will be to create or use an existing key pair - we will use the key pair we created earlier.
 
-After a couple of minutes your instance will be ready, and visible under the running instances. You will be able to navigate to the site using the public IP. That public IP is unstable so next you will want to set up an elastic IP and pair that with your instance.
+After a couple of minutes your instance will be ready, and visible under the running instances. Given that we created a nondefault VPC, we are not allocated a public IP by default. Don't worry, we'll be addressing that next!
 
-#### ELASTIC IP
+## Create and Associate Elastic IP
 
-Allocating the Elastic IP is as simple and clicking the button. But then you need to pair it with your instance, which is also very simple. But is also very important because even though you are using the free tier Amazon will charge you for unpaired Elastic IPs.
+:information_source: An _Elastic IP address_ is a static IP address designed for dynamic cloud computing. An Elastic IP address is associated with your AWS account. It is a public IP address, which is reachable from the internet.
 
-Once that is set up it is time to connect,  We will be using SSH, which is why we opened up port 22 in our security group.
+1. In your EC2 console, select **Network & Security > Elastic IPs**
+2. **Allocate New Address** > **Yes, Allocate**
+
+Now that we have an Elastic IP, let's associate it with a running instance:
+
+1. Still under **Network & Security > Elastic IPs**, ensure the Elastic IP you've created is checked
+2. **Actions > Associate Address**
+3. Type in the instance ID or name tag of your EC2 instance
+
 
 #### CONNECTING
 
@@ -169,3 +177,4 @@ A more production ready solution would be to use [NginX](https://www.nginx.com/r
 3. [What is Amazon VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html)
 4. [Getting Started with Amazon EC2 Linux Instances](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
 5. [Amazon Machine Images](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)
+6. [Elastic IP Addresses](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#using-instance-addressing-eips-associating)
