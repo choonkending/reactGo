@@ -64,7 +64,6 @@ chmod 400 your_file.pem
  - Enter a friendly **VPC Name** (leave other default settings) 
  - Create VPC
 
-
 :information_source: A _subnet_ is a range of IP addresses in your VPC. Use a **public subnet** for resources that must be connected to the internet, and a **private subnet** for resources that won't be connected to the internet. 
 
 ## Create a Security Group
@@ -126,6 +125,7 @@ Now that we have an Elastic IP, let's associate it with a running instance:
 2. **Actions > Associate Address**
 3. Type in the instance ID or name tag of your EC2 instance
 
+:books: If you have a registered domain name (e.g. example.com) and wish to route your traffic to your EC2 instance, read more [here](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-ec2-instance.html).
 
 #### CONNECTING
 
@@ -178,3 +178,4 @@ A more production ready solution would be to use [NginX](https://www.nginx.com/r
 4. [Getting Started with Amazon EC2 Linux Instances](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
 5. [Amazon Machine Images](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)
 6. [Elastic IP Addresses](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#using-instance-addressing-eips-associating)
+7. [Routing Traffic to an Amazon EC2 Instance](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-ec2-instance.html)
