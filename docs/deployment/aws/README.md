@@ -2,6 +2,8 @@
 
 Amazon AWS allows you access to a free tier of service for a year, so it is a great option if you are looking for a place to host your project and want to grow your Ops skills along with your dev skills.
 
+:information_source: We will be covering creating an Ubuntu instance in AWS in this README.md. If you are interested, read [this](https://github.com/choonkending/reactGo/blob/aws-docs/docs/deployment/aws/linux-ec2.md) doc for creating AWS Linux - it's a work-in-progress!
+
 ##### SIGN UP
 
 The first thing you will need to do is sign up for an [account](https://aws.amazon.com/free/)
