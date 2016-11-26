@@ -109,7 +109,7 @@ You ready?
 3. Follow through the steps, but the defaults should all suffice. 
 4. Tag your project with a name and then apply the security group you created earlier, review and launch.
 
-The last step will be to create or use an existing key pair. do this and save it someplace safe.
+The last step will be to create or use an existing key pair - we will use the key pair we created earlier.
 
 After a couple of minutes your instance will be ready, and visible under the running instances. You will be able to navigate to the site using the public IP. That public IP is unstable so next you will want to set up an elastic IP and pair that with your instance.
 
