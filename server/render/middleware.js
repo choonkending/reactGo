@@ -57,7 +57,6 @@ export default function render(req, res) {
     } else if (props) {
       // This method waits for all render component
       // promises to resolve before returning to browser
-      store.dispatch({ type: types.CREATE_REQUEST });
       fetchDataForRoute(props)
         .then(data => {
           store.dispatch({ type: types.REQUEST_SUCCESS, data });
