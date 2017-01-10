@@ -4,9 +4,10 @@ import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import createRoutes from './routes';
-import * as types from './types';
 import configureStore from './store/configureStore';
 import fetchDataForRoute from './utils/fetchDataForRoute';
+import fetchHandlers from './utils/fetchHandlers';
+import getMatchedRoute from './utils/getMatchedRoute';
 
 // Grab the state from a global injected into
 // server-generated HTML
@@ -15,6 +16,7 @@ const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 const routes = createRoutes(store);
+
 
 /**
  * Callback function handling frontend route changes.
@@ -31,11 +33,11 @@ function onUpdate() {
     return;
   }
 
-  store.dispatch({ type: types.CREATE_REQUEST });
-  fetchDataForRoute(this.state)
-    .then(data => {
-      return store.dispatch({ type: types.REQUEST_SUCCESS, data });
-    });
+  const route = getMatchedRoute(this.state);
+  const { fetchSuccess, fetchError } = fetchHandlers(route)(store);
+  fetchDataForRoute({ route, params: this.state.params })
+    .then(fetchSuccess)
+    .catch(fetchError);
 }
 
 

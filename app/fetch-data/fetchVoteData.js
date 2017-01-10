@@ -1,12 +1,13 @@
 import { voteService } from '../services';
+import { LOAD_TOPICS, RESET_TOPICS } from '../types';
 
-const fetchData = () => {
-  return voteService.getTopics()
-  .then(res => res.data)
-  // Returning [] as a placeholder now so it does not error out when this service
-  // fails. We should be handling this in our DISPATCH_REQUEST_FAILURE
-  .catch(() => []);
+const fetchData = () => voteService.getTopics();
+const fetchSuccess = ({ store, response }) => store.dispatch({ type: LOAD_TOPICS, data: response.data });
+const fetchError = ({ store, error }) => store.dispatch({ type: RESET_VOTES });
+
+export default {
+  fetchData,
+  fetchSuccess,
+  fetchError
 };
-
-export default fetchData;
 

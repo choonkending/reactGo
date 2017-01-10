@@ -32,9 +32,11 @@ const topics = (
   action
 ) => {
   switch (action.type) {
-    case types.REQUEST_SUCCESS:
-      if (action.data) return action.data;
-      return state;
+    case types.LOAD_TOPICS:
+      console.log("I was here");
+      return action.data;
+    case types.RESET_TOPICS:
+      return [];
     case types.CREATE_TOPIC_REQUEST:
       return [...state, topic(undefined, action)];
     case types.CREATE_TOPIC_FAILURE:

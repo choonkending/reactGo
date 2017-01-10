@@ -6,6 +6,8 @@ import * as types from '../../app/types';
 import { baseURL } from '../../config/app';
 import pageRenderer from './pageRenderer';
 import fetchDataForRoute from '../../app/utils/fetchDataForRoute';
+import getMatchedRoute from '../../app/utils/getMatchedRoute';
+import fetchHandlers from '../../app/utils/fetchHandlers';
 
 // configure baseURL for axios requests (for serverside API calls)
 axios.defaults.baseURL = baseURL;
@@ -55,18 +57,25 @@ export default function render(req, res) {
     } else if (redirect) {
       res.redirect(302, redirect.pathname + redirect.search);
     } else if (props) {
-      // This method waits for all render component
-      // promises to resolve before returning to browser
-      fetchDataForRoute(props)
-        .then(data => {
-          store.dispatch({ type: types.REQUEST_SUCCESS, data });
-          const html = pageRenderer(store, props);
-          res.status(200).send(html);
-        })
-        .catch(err => {
+
+      const route = getMatchedRoute(props);
+      const { fetchSuccess, fetchError } = fetchHandlers(route)(store);
+
+      const renderSuccess = () => {
+        const html = pageRenderer(store, props);
+        res.status(200).send(html);
+      };
+      const renderError = error => {
           console.error(err);
           res.status(500).json(err);
-        });
+      };
+
+      fetchDataForRoute({ route, props: props.params })
+        .then(fetchSuccess)
+        .catch(fetchError)
+        .then(renderSuccess)
+        .catch(renderError);
+
     } else {
       res.sendStatus(404);
     }
