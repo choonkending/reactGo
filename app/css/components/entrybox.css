@@ -6,11 +6,6 @@
   margin-bottom: 72px;
 }
 
-.header {
-  @apply --heading;
-  text-align: center;
-}
-
 .input {
   @apply --heading;
   @apply --input;

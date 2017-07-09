@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import EntryBox from '../components/EntryBox';
 import MainSection from '../components/MainSection';
 import Scoreboard from '../components/Scoreboard';
+import Heading from '../components/Heading';
 import { createTopic, typing, incrementCount,
   decrementCount, destroyTopic } from '../actions/topics';
 import styles from '../css/components/vote';
@@ -16,6 +17,7 @@ class Vote extends Component {
     const {newTopic, topics, typing, createTopic, destroyTopic, incrementCount, decrementCount } = this.props;
     return (
       <div className={cx('vote')}>
+        <Heading>Hackday Ideas</Heading>
         <EntryBox
           topic={newTopic}
           onEntryChange={typing}
