@@ -100,6 +100,7 @@
     "sequelize-cli": "^2.7.0",
     "spark-md5": "^3.0.0",
     "style-loader": "^0.16.1",
+    "styled-components": "^2.1.1",
     "url-loader": "^0.5.8",
     "webpack": "^2.3.3",
     "webpack-dev-middleware": "^1.10.1",
