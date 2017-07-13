@@ -2,16 +2,19 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { RouterContext } from 'react-router';
+import { ServerStyleSheet } from 'styled-components';
 import Helmet from 'react-helmet';
 import staticAssets from './static-assets';
 
-const createApp = (store, props) => renderToString(
-  <Provider store={store}>
-    <RouterContext {...props} />
-  </Provider>
+const createApp = (store, props, styleSheet) => renderToString(
+  styleSheet.collectStyles(
+    <Provider store={store}>
+      <RouterContext {...props} />
+    </Provider>
+  )
 );
 
-const buildPage = ({ componentHTML, initialState, headAssets }) => {
+const buildPage = ({ componentHTML, initialState, headAssets, styleSheet }) => {
   return `
 <!doctype html>
 <html>
@@ -19,6 +22,7 @@ const buildPage = ({ componentHTML, initialState, headAssets }) => {
     ${headAssets.title.toString()}
     ${headAssets.meta.toString()}
     ${headAssets.link.toString()}
+    ${styleSheet.getStyleTags()}
     ${staticAssets.createStylesheets()}
     ${staticAssets.createTrackingScript()}
   </head>
@@ -32,8 +36,9 @@ const buildPage = ({ componentHTML, initialState, headAssets }) => {
 
 export default (store, props) => {
   const initialState = store.getState();
-  const componentHTML = createApp(store, props);
+  const styleSheet = new ServerStyleSheet();
+  const componentHTML = createApp(store, props, styleSheet);
   const headAssets = Helmet.renderStatic();
-  return buildPage({ componentHTML, initialState, headAssets });
+  return buildPage({ componentHTML, initialState, headAssets, styleSheet });
 };
 
