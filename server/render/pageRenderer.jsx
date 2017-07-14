@@ -6,12 +6,10 @@ import { ServerStyleSheet } from 'styled-components';
 import Helmet from 'react-helmet';
 import staticAssets from './static-assets';
 
-const createApp = (store, props, styleSheet) => renderToString(
-  styleSheet.collectStyles(
-    <Provider store={store}>
-      <RouterContext {...props} />
-    </Provider>
-  )
+const createApp = (store, props) => (
+  <Provider store={store}>
+    <RouterContext {...props} />
+  </Provider>
 );
 
 const buildPage = ({ componentHTML, initialState, headAssets, styleSheet }) => {
@@ -37,7 +35,11 @@ const buildPage = ({ componentHTML, initialState, headAssets, styleSheet }) => {
 export default (store, props) => {
   const initialState = store.getState();
   const styleSheet = new ServerStyleSheet();
-  const componentHTML = createApp(store, props, styleSheet);
+  const componentHTML = renderToString(
+    styleSheet.collectStyles(
+      createApp(store, props)
+    )
+  );
   const headAssets = Helmet.renderStatic();
   return buildPage({ componentHTML, initialState, headAssets, styleSheet });
 };
