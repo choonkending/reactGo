@@ -5,12 +5,6 @@ import { RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
 import staticAssets from './static-assets';
 
-const createApp = (store, props) => renderToString(
-  <Provider store={store}>
-    <RouterContext {...props} />
-  </Provider>
-);
-
 const buildPage = ({ componentHTML, initialState, headAssets }) => {
   return `
 <!doctype html>
