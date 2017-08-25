@@ -1,4 +1,4 @@
-const createStaticAssets = __PRODUCTION__ ? require('./prod') : require('./dev');
+const staticAssets = __PRODUCTION__ ? require('./prod') : require('./dev');
 
-export default createStaticAssets;
+export default staticAssets;
 
