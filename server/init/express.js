@@ -2,6 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import session from 'express-session';
 import bodyParser from 'body-parser';
+import favicon from 'serve-favicon';
 import path from 'path';
 import flash from 'express-flash';
 import methodOverride from 'method-override';
@@ -25,6 +26,7 @@ export default (app) => {
   app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
   app.use(methodOverride());
 
+  app.use(favicon(path.join(process.cwd(), 'favicon.ico')));
   app.use(express.static(path.join(process.cwd(), 'public')));
 
   // I am adding this here so that the Heroku deploy will work
