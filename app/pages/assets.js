@@ -4,7 +4,6 @@ https://github.com/google/web-starter-kit/blob/master/app/index.html
 import chromeFavicon from '../images/chrome-ninja192-precomposed.png';
 import appleFavicon from '../images/apple-ninja152-precomposed.png';
 import msFavicon from '../images/ms-ninja144-precomposed.png';
-import favicon from '../images/favicon.png';
 
 const metaAssets = () => {
   return [
@@ -40,7 +39,6 @@ const metaAssets = () => {
 const linkAssets = () => {
   const links = [
     // Add to homescreen for Chrome on Android
-    { rel: 'icon', href: favicon },
     { rel: 'icon', sizes: '192x192', href: chromeFavicon },
     // Add to homescreen for Safari on IOS
     { rel: 'apple-touch-icon', sizes: '152x152', href: appleFavicon }
