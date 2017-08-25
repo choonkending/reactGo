@@ -2,13 +2,16 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
 import configureStore from '../../app/store/configureStore';
+import createServerApp from '../../app/screens/createServerApp';
 import routes from '../../app/routes';
 import page from './templates/index.html';
-import createAppWithRoutes from './createAppWithRoutes';
+import staticAssets from './static-assets';
 
-const createInitialState = data => ({ topic: { topics: data }});
+/* FIX: initial state should ideally not be coupled to the shape of the reducer */
+const createInitialState = data => ({ topic: { topics: data[0] }});
+
 const appRoutes = routes[0].routes;
-const createApp = createAppWithRoutes(appRoutes);
+const createApp = createServerApp(appRoutes);
 
 const createHydrationScript = initialState => (
   `<script>
@@ -27,7 +30,10 @@ const renderPage = url => data => {
     .replace('!META!', meta)
     .replace('!LINK!', link)
     .replace('!MARKUP!', markup)
-    .replace('!PAGE_DATA!', createHydrationScript(initialState));
+    .replace('!PAGE_DATA!', createHydrationScript(initialState))
+    .replace('!HEAD_SCRIPTS!', staticAssets.createHeadScripts())
+    .replace('!APP_STYLES!', staticAssets.createStyleSheets())
+    .replace('!APP_SCRIPTS!', staticAssets.createAppScripts());
 };
 
 export default renderPage;
