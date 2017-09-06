@@ -1,5 +1,6 @@
-import { fetchVoteData } from './fetch-data';
-import { App, Vote, Dashboard, About, LoginOrRegister } from './pages';
+import { fetchVoteData, fetchDashboardData } from './fetch-data';
+import { App, Vote, About, LoginOrRegister } from './pages';
+import Dashboard from './screens/Dashboard';
 
 const routes = [
   {
@@ -17,7 +18,8 @@ const routes = [
       },
       {
         path: '/dashboard',
-        component: Dashboard
+        component: Dashboard,
+        fetchData: fetchDashboardData
       },
       {
         path: '/about',

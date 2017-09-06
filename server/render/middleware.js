@@ -6,6 +6,8 @@ import fetchDataForRoutes from '../../app/utils/fetchDataForRoutes';
 import createRouteMatcherWithUrl from '../../app/utils/createRouteMatcherWithUrl';
 import sendResponse from './sendResponse';
 import renderPage from './renderPage';
+import handleSuccess from './handleSuccess';
+import handleError from './handleError';
 
 const render = (req, res) => {
   const url = req.url;
@@ -17,7 +19,6 @@ const render = (req, res) => {
     .all(promises)
     .then(renderPage(url))
     .then(sendResponse(res));
-
 };
 
 export default render;

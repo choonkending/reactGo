@@ -52,4 +52,14 @@ export default (app) => {
   } else {
     console.warn(unsupportedMessage('topics routes'));
   }
+
+  // Adding this route here as a proof of concept for authentication
+  // Feel free to replace with a proper controller
+  app.get('/profiles', (req, res) => {
+    console.log("yo b", req.url);
+    if (req.isAuthenticated()) {
+      return res.sendStatus(200);
+    }
+    return res.sendStatus(401);
+  });
 };

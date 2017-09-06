@@ -21,6 +21,7 @@ const createHydrationScript = initialState => (
 );
 
 const renderPage = url => data => {
+  console.log("data", data);
   const initialState = createInitialState(data);
   const store = configureStore(initialState);
   const markup = renderToString(createApp(url)(store));
